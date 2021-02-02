@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "outDir": "build",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "allowUnreachableCode": false,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./@types/"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "isolatedModules": true
+  },
+  "include": [
+    "packages/**/*",
+    "@types"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
