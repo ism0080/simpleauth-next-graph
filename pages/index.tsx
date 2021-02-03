@@ -22,7 +22,7 @@ const Home = () => {
               <FormLabel>Password</FormLabel>
               <Input type='password' placeholder='*******' />
             </FormControl>
-            <Button width='full' mt={4} type='submit' variantColor='teal' variant='outline'>
+            <Button width='full' mt={4} type='submit'>
               Sign In
             </Button>
           </form>
