@@ -28,7 +28,7 @@ const Register = () => {
 
     setTimeout(() => {
       setBannerMsg(null)
-      if (!formErrors) router.push('login')
+      if (!formErrors) router.push('/login')
     }, 3000)
   }
 
@@ -80,6 +80,9 @@ const Register = () => {
             </Button>
           </form>
         </Box>
+        <Button width='full' mt={4} onClick={() => router.push('/login')}>
+          Login
+        </Button>
       </Box>
     </Flex>
   )

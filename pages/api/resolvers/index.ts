@@ -93,6 +93,11 @@ export const resolvers = {
       }
 
       return JSON.stringify(response)
+    },
+    logout: (parent, args, ctx) => {
+      ctx.cookies.set('id', { expires: Date.now(0) })
+
+      return 'Logged Out'
     }
   }
 }

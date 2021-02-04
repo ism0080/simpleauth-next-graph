@@ -8,3 +8,8 @@ mutation Register($email: String!, $name: String, $password: String!) {
     register(email: $email, name: $name, password: $password)
 }
 `
+export const logoutMutation = `
+mutation {
+    logout
+}
+`

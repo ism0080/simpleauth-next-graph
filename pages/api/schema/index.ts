@@ -8,6 +8,7 @@ export const typeDefs = gql`
   type Mutation {
     register(email: String!, name: String, password: String!): String
     login(email: String!, password: String!): String
+    logout: String
     devCreateTable: String
   }
 

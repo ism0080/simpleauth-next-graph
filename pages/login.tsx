@@ -1,28 +1,24 @@
 import React, { useEffect } from 'react'
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Text } from '@chakra-ui/react'
 import Head from 'next/head'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 
 import { loginUser } from '../requests/user'
-import useUser from '../hooks/useUser'
+import useAuth from '../hooks/useAuth'
 
 const Login = () => {
   const router = useRouter()
   const { register, handleSubmit, errors } = useForm()
-  const { mutate, loggedIn } = useUser()
+  const { mutate, authenticated } = useAuth()
 
   useEffect(() => {
-    router.prefetch('dashboard')
-    if (loggedIn) Router.replace('dashboard')
-  }, [loggedIn])
-
-  if (loggedIn) return <> Redirecting.... </>
+    if (authenticated) Router.replace('dashboard')
+  }, [authenticated])
 
   const onSubmit = async ({ email, password }: { email: string; password: string }) => {
     await loginUser({ email, password })
-    mutate('api_user')
+    mutate('is_auth')
   }
 
   return (
@@ -62,6 +58,9 @@ const Login = () => {
             </Button>
           </form>
         </Box>
+        <Button width='full' mt={4} onClick={() => router.push('/register')}>
+          Register
+        </Button>
       </Box>
     </Flex>
   )

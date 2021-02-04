@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { loginMutation, registerMutation } from './mutations'
+import { loginMutation, registerMutation, logoutMutation } from './mutations'
 import { meQuery } from './queries'
 
 const API_ENDPOINT = '/api'
@@ -46,5 +46,16 @@ export const getUser = async () => {
   } catch (error) {
     console.log(error)
     throw error
+  }
+}
+
+export const logoutUser = async () => {
+  try {
+    const { data } = await axios.post(API_ENDPOINT, {
+      query: logoutMutation
+    })
+    return data
+  } catch (error) {
+    console.log(error)
   }
 }
