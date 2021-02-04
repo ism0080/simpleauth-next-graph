@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-micro'
 
 export const typeDefs = gql`
   type Query {
-    getUser(email: String!): User!
+    me: User!
   }
 
   type Mutation {

@@ -1,7 +1,11 @@
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
+import React from 'react'
+import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 const Home = () => {
+  const router = useRouter()
+
   return (
     <Flex width='full' align='center' justifyContent='center'>
       <Head>
@@ -12,20 +16,13 @@ const Home = () => {
         <Box textAlign='center'>
           <Heading>Simple Auth</Heading>
         </Box>
-        <Box my={4} textAlign='left' p={8} maxWidth='500px' borderWidth={1} borderRadius={8} boxShadow='lg'>
-          <form>
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input type='email' placeholder='test@test.com' />
-            </FormControl>
-            <FormControl mt={6} isRequired>
-              <FormLabel>Password</FormLabel>
-              <Input type='password' placeholder='*******' />
-            </FormControl>
-            <Button width='full' mt={4} type='submit'>
-              Sign In
-            </Button>
-          </form>
+        <Box my={4} p={8} maxWidth='500px' borderWidth={1} borderRadius={8} boxShadow='lg'>
+          <Button width='full' mt={4} onClick={() => router.push('/login')}>
+            Login
+          </Button>
+          <Button width='full' mt={4} onClick={() => router.push('/register')}>
+            Register
+          </Button>
         </Box>
       </Box>
     </Flex>

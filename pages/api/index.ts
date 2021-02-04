@@ -1,25 +1,25 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
+import Cookies from 'cookies'
+
 import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
+import { verifyToken } from './functions/validate-token'
 
-const cors = Cors()
-
-// const typeDefs = gql`
-//   type Query {
-//     hello: String
-//   }
-// `
-
-// const resolvers = {
-//   Query: {
-//     hello: () => 'Hello World'
-//   }
-// }
+const cors = Cors({ allowCredentials: true, origin: 'http://localhost:3000' })
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context({ req, res }) {
+    const cookies = new Cookies(req, res)
+    const token = cookies.get('id')
+    const user = verifyToken(token)
+    return {
+      cookies,
+      user
+    }
+  }
 })
 
 const handler = server.createHandler({ path: '/api' })

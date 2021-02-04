@@ -2,7 +2,7 @@ import AWS from 'aws-sdk'
 
 var docClient = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint: 'http://localhost:8000' })
 
-export const putData = async (params) => {
+export const putData = async (params: TableObject) => {
   await docClient
     .put(params, function (err, data) {
       if (err) {

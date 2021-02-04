@@ -27,6 +27,9 @@
     "moduleResolution": "node",
     "isolatedModules": true
   },
+  "paths": {
+    "*": ["@types/*.d.ts"]
+  },
   "include": [
     "packages/**/*",
     "@types"
