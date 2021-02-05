@@ -13,7 +13,8 @@ const Login = () => {
   const { mutate, authenticated } = useAuth()
 
   useEffect(() => {
-    if (authenticated) Router.replace('dashboard')
+    router.prefetch('/dashboard')
+    if (authenticated) Router.replace('/dashboard')
   }, [authenticated])
 
   const onSubmit = async ({ email, password }: { email: string; password: string }) => {

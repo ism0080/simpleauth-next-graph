@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk'
+AWS.config.update({ accessKeyId: process.env.DB_ACCESSKEY_ID, secretAccessKey: process.env.DB_SECRETACCESS_KEY, region: 'ap-southeast-2' })
 
-var docClient = new AWS.DynamoDB.DocumentClient({ region: 'ap-southeast-2', endpoint: 'http://localhost:8000' })
+var docClient = new AWS.DynamoDB.DocumentClient({ endpoint: process.env.DB_ENDPOINT })
 
 export const putData = async (params: TableObject) => {
   await docClient

@@ -51,7 +51,7 @@ export const resolvers = {
       }
 
       try {
-        const params = createUserPutObject(constants.tableName, user)
+        const params = createUserPutObject(process.env.DB_TABLENAME, user)
         await putData(params)
 
         return `Created User ${args.email}`
@@ -95,7 +95,7 @@ export const resolvers = {
       return JSON.stringify(response)
     },
     logout: (parent, args, ctx) => {
-      ctx.cookies.set('id', { expires: Date.now(0) })
+      ctx.cookies.set('id', { expires: Date.now() })
 
       return 'Logged Out'
     }

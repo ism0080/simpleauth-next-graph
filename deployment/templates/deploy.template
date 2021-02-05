@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create DynamoDB table to be used by simple-auth
+Parameters:
+  ReadCapacityUnits:
+    Description: Provisioned read throughput
+    Type: Number
+    Default: 5
+    MinValue: 5
+    MaxValue: 10000
+    ConstraintDescription: must be between 5 and 10000
+  WriteCapacityUnits:
+    Description: Provisioned write throughput
+    Type: Number
+    Default: 5
+    MinValue: 5
+    MaxValue: 10000
+    ConstraintDescription: must be between 5 and 10000
+  TableName:
+    Description: Name of DynamoDB Table
+    Type: String
+    Default: simple-auth
+Resources:
+  SimpleAuthTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: date
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+        - AttributeName: date
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref ReadCapacityUnits
+        WriteCapacityUnits: !Ref WriteCapacityUnits
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Ref TableName
+  DatabaseRole:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName: !Sub 'dynamoDb-table-${TableName}'
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  [
+                    'dynamodb:BatchGet*',
+                    'dynamodb:DescribeStream',
+                    'dynamodb:DescribeTable',
+                    'dynamodb:Get*',
+                    'dynamodb:Query',
+                    'dynamodb:Scan',
+                    'dynamodb:BatchWrite*',
+                    'dynamodb:CreateTable',
+                    'dynamodb:Delete*',
+                    'dynamodb:Update*',
+                    'dynamodb:PutItem'
+                  ]
+                Resource: !GetAtt SimpleAuthTable.Arn
+  DatabaseRoleKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref DatabaseRole
+
+Outputs:
+  TableName:
+    Value: !Ref SimpleAuthTable
+    Description: Name of DynamoDB Table
+  DatabaseRole:
+    Value: !Ref DatabaseRole
+    Description: IAM User with access to the dynamoDb table
+  DatabaseRoleKeyId:
+    Value: !Ref DatabaseRoleKey
+  DatabaseRoleKeySecret:
+    Value: !GetAtt DatabaseRoleKey.SecretAccessKey

@@ -1,10 +1,9 @@
 import AWS from 'aws-sdk'
-import { constants } from '../functions/constants'
 
-var dynamodb = new AWS.DynamoDB({ region: 'ap-southeast-2', endpoint: 'http://localhost:8000' })
+var dynamodb = new AWS.DynamoDB({ endpoint: process.env.DB_ENDPOINT })
 
 var params = {
-  TableName: constants.tableName,
+  TableName: process.env.DB_TABLENAME,
   KeySchema: [
     { AttributeName: 'email', KeyType: 'HASH' }, // partition key
     { AttributeName: 'date', KeyType: 'RANGE' } // sort key

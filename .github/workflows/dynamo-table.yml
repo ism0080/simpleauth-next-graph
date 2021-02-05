@@ -1,0 +1,27 @@
+name: DynamoDB Cloudformation Stack
+
+on:
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'AWS Region'
+        required: true
+        default: 'ap-southeast-2'
+
+jobs:
+  upload:
+    name: Deploy stack to AWS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CF_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CF_SECRET_ACCESS_KEY }}
+          aws-region: ${{ github.event.inputs.region }}
+      - name: Create DynamoDB Table
+        uses: aws-actions/aws-cloudformation-github-deploy@master
+        with:
+          name: $GITHUB_REPOSITORY
+          template: ./deployment/templates/deploy.template
+          no-fail-on-empty-changeset: '1'

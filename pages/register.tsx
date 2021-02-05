@@ -18,8 +18,7 @@ const Register = () => {
 
   const onSubmit = async ({ name, email, password }: { name: string; email: string; password: string }) => {
     const { data, errors: formErrors } = await registerUser({ email, name, password })
-    console.log('deregister', data)
-    console.log('err', formErrors)
+
     setBannerMsg({
       status: formErrors ? 'error' : 'success',
       title: formErrors ? 'Error' : 'Account Created',

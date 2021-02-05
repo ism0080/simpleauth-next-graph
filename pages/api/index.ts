@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from 'apollo-server-micro'
+import { ApolloServer } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import Cookies from 'cookies'
 
@@ -6,7 +6,7 @@ import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
 import { verifyToken } from './functions/validate-token'
 
-const cors = Cors({ allowCredentials: true, origin: 'http://localhost:3000' })
+const cors = Cors({ allowCredentials: true, origin: process.env.CORS_ORIGIN })
 
 const server = new ApolloServer({
   typeDefs,
