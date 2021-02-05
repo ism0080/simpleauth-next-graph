@@ -75,7 +75,7 @@ const Register = () => {
               {errors.password && <Text color='red'>{errors.password.message}</Text>}
             </FormControl>
             <Button width='full' mt={4} type='submit'>
-              Sign In
+              Register
             </Button>
           </form>
         </Box>
