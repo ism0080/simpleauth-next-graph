@@ -23,6 +23,6 @@ jobs:
       - name: Create DynamoDB Table
         uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
         with:
-          name: $GITHUB_REPOSITORY
+          name: simpleauth-next-graph-stack
           template: ./deployment/templates/deploy.template
           no-fail-on-empty-changeset: '1'
