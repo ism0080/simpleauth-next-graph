@@ -20,7 +20,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.CF_SECRET_ACCESS_KEY }}
           aws-region: ${{ github.event.inputs.region }}
       - name: Create DynamoDB Table
-        uses: aws-actions/aws-cloudformation-github-deploy@master
+        uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
         with:
           name: $GITHUB_REPOSITORY
           template: ./deployment/templates/deploy.template
