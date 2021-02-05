@@ -13,9 +13,7 @@ jobs:
     name: Deploy stack to AWS
     runs-on: ubuntu-latest
     steps:
-      - name: Directory
-        run: |
-          ls
+      - uses: actions/checkout@v1
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
