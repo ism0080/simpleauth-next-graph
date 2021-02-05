@@ -16,9 +16,6 @@ jobs:
       - name: Directory
         run: |
           ls
-          ls ./deployment
-          ls ./deployment/templates
-          cat ./deployment/templates/deploy.template
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
