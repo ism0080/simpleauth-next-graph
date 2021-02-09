@@ -30,7 +30,6 @@ export const registerUser = async ({ email, name, password }) => {
         password
       }
     })
-    console.log('register', data)
     return data
   } catch (error) {
     console.log(error)

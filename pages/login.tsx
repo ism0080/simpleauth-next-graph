@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Text } from '@chakra-ui/react'
 import Head from 'next/head'
 import Router, { useRouter } from 'next/router'
@@ -6,11 +6,13 @@ import { useForm } from 'react-hook-form'
 
 import { loginUser } from '../requests/user'
 import useAuth from '../hooks/useAuth'
+import { InfoBanner, InfoBannerInterface } from '../components/info-banner'
 
 const Login = () => {
   const router = useRouter()
   const { register, handleSubmit, errors } = useForm()
   const { mutate, authenticated } = useAuth()
+  const [bannerMsg, setBannerMsg] = useState<InfoBannerInterface>()
 
   useEffect(() => {
     router.prefetch('/dashboard')
@@ -18,8 +20,18 @@ const Login = () => {
   }, [authenticated])
 
   const onSubmit = async ({ email, password }: { email: string; password: string }) => {
-    await loginUser({ email, password })
-    mutate('is_auth')
+    const { data, errors: formErrors } = await loginUser({ email, password })
+
+    setBannerMsg({
+      status: formErrors ? 'error' : 'success',
+      title: formErrors ? 'Error' : 'Redirecting',
+      desc: formErrors ? formErrors[0].message : 'Successfully logged in'
+    })
+
+    setTimeout(() => {
+      setBannerMsg(null)
+      mutate('is_auth')
+    }, 3000)
   }
 
   return (
@@ -32,6 +44,7 @@ const Login = () => {
         <Box textAlign='center'>
           <Heading>Login</Heading>
         </Box>
+        {bannerMsg && <InfoBanner {...bannerMsg} />}
         <Box my={4} textAlign='left' p={8} maxWidth='500px' borderWidth={1} borderRadius={8} boxShadow='lg'>
           <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete='off'>
             <FormControl id='email' isRequired>
