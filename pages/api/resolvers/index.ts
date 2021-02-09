@@ -81,7 +81,7 @@ export const resolvers = {
       context.cookies.set('id', token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-        secure: process.env.NODE_ENV === 'production'
+        secure: process.env.SECURE_COOKIE
       })
 
       const response = {
