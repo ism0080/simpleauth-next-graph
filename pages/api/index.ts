@@ -6,6 +6,11 @@ import { typeDefs } from './schema'
 import { resolvers } from './resolvers'
 import { verifyToken } from './functions/validate-token'
 
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
 const cors = Cors({ allowCredentials: true, origin: process.env.CORS_ORIGIN })
 
 const server = new ApolloServer({
@@ -23,11 +28,5 @@ const server = new ApolloServer({
 })
 
 const handler = server.createHandler({ path: '/api' })
-
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
 
 export default cors(handler)
